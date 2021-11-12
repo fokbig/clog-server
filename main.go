@@ -30,7 +30,7 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 	go listener()
-	log.Printf("[info] 服务开始监听端口: %s", endPoint)
+	log.Printf("开始监听HTTP端口 %s", endPoint)
 	err := server.ListenAndServe()
 	if err != nil {
 		println(err.Error())
@@ -38,7 +38,7 @@ func main() {
 }
 
 func listener() {
-	fmt.Println("开始监听TCP端口：10002")
+	log.Println("开始监听TCP端口：10002")
 	//Listen来创建服务端
 	ln, err := net.Listen("tcp", ":10002")
 
@@ -61,8 +61,10 @@ func listener() {
 }
 
 func process(conn net.Conn) {
+	defer util.ConnClose(conn)
+
+	buf := make([]byte, 512)
 	for {
-		buf := make([]byte, 512)
 		_, err := conn.Read(buf)
 
 		if err != nil {
