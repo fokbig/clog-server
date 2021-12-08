@@ -22,7 +22,7 @@ func QueryAllUser() []User {
 
 func QueryByUsername(username string) *User {
 	var user User
-	if err := db.Where("username = ?", username).Find(&user).Error; err != nil {
+	if err := db.Model(&User{}).Where("username = ?", username).First(user).Error; err != nil {
 		log.Println("用户查找失败: ", err)
 		return nil
 	}

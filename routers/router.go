@@ -1,7 +1,9 @@
 package routers
 
 import (
+	"CLogServer/middleware/jwt"
 	v1 "CLogServer/routers/api/v1"
+	v2 "CLogServer/routers/api/v2"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,10 +13,18 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	apis := r.Group("/api/v1")
-	apis.Use()
+	api1 := r.Group("/api/v1")
+	api2 := r.Group("/api/v2")
+
+	api1.Use(jwt.JWT())
 	{
-		apis.POST("/box", v1.AddBox)
+		api1.POST("/box", v1.AddBox)
+	}
+
+	api2.POST("/token", v2.GetToken)
+	api2.Use(jwt.JWT())
+	{
+
 	}
 
 	return r

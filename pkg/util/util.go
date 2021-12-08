@@ -12,6 +12,11 @@ func Setup() {
 	if err != nil {
 		createDir(path)
 	}
+	initJWTSecret()
+}
+
+func initJWTSecret() {
+	jwtSecret = []byte(setting.AppSetting.JwtSecret)
 }
 
 func createDir(dir string) bool {

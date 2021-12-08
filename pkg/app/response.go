@@ -5,6 +5,13 @@ import (
 	"net/http"
 )
 
+const (
+	Error         = "error"
+	Success       = "success"
+	ServerError   = "内部服务错误"
+	UserAuthError = "用户名或密码错误"
+)
+
 type Gin struct {
 	C *gin.Context
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"CLogServer/dao"
 	"CLogServer/pkg/setting"
 	"CLogServer/pkg/util"
 	"CLogServer/routers"
@@ -15,6 +16,7 @@ import (
 func init() {
 	setting.Setup()
 	util.Setup()
+	dao.Setup()
 }
 
 func main() {
